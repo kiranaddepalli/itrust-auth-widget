@@ -41,7 +41,6 @@ const FaceAnimation = ({
     width: isCircle ? "155" : "40px",
     height: isCircle ? "155" : "40px",
     borderTopLeftRadius: isCircle ? "150px" : "15px",
-    // borderStyle: "solid",
     opacity: completed ? "0" : "1",
     margin: completed ? "-5px" : "0px",
     config: { duration: FACE_ANIMATION_DURATION },
