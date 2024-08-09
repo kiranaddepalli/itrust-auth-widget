@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AppProvider from "./context/AppContext";
 
 import Home from "./pages/Containers/Home";
+import './app.css'
 
 
 function App() {

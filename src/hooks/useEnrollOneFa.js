@@ -12,6 +12,7 @@ const useEnrollOneFa = (
 ) => {
   const [enrollAntispoofPerformed, setEnrollAntispoofPerformed] = useState(false);
   const [enrollAntispoofStatus, setEnrollAntispoofStatus] = useState("");
+  const [progress, setProgress] = useState(0);
 
   const [enrollValidationStatus, setEnrollValidationStatus] = useState("");
 
@@ -27,6 +28,14 @@ const useEnrollOneFa = (
     enrollTokenCurrent = token;
     skipAntispoofProcess = skipAntispoof;
     disableButtons(true);
+    if (enrollTokenCurrent) {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) return 100;
+        return prevProgress + 20;
+      });
+    } else {
+      setProgress(0);
+    }
     // eslint-disable-next-line no-unused-vars
     const bestImage = await enroll1FA(callback, {
       input_image_format: "rgba",
@@ -45,6 +54,7 @@ const useEnrollOneFa = (
     if (result.returnValue.status === 0) {
       if (result.returnValue.guid && result.returnValue.puid) {
         console.log ('The user is already enrolled')
+        setProgress(100);
         setEnrollGUID(result.returnValue.guid);
         setEnrollPUID(result.returnValue.puid);
         setEnrollAntispoofPerformed();
@@ -91,6 +101,7 @@ const useEnrollOneFa = (
           setEnrollAntispoofPerformed("");
           setEnrollAntispoofStatus("");
           setEnrollValidationStatus("");
+          setProgress(0);
         }
       }} else {
       if (result.returnValue.validation_status.length > 0) {
@@ -136,6 +147,7 @@ const useEnrollOneFa = (
     enrollValidationStatus,
     enrollToken,
     enrollUserOneFa,
+    progress
   };
 };
 
